@@ -12,11 +12,12 @@ class GFBinarySearchTree
 {
     public:
         GFBinarySearchTree();
-        void add(int *);
-        void printTree();
+        bool add(int *);
+        int *search(int &);
+        void printTree(bool addresses = 0);
 
     private:
-        void printTree(GFBinarySearchTreeNode *node, int tabs);
+        void printTree(GFBinarySearchTreeNode *node, int tabs, bool addresses = 0);
 
         GFBinarySearchTreeNode *head;
 };

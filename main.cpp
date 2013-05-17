@@ -21,6 +21,8 @@ int main()
 
     bst.printTree();
 
+    cout << "\nSearch result: " << bst.search( *new int(6) ) << endl;
+
     cout << "\nExiting..." << endl;
 
     return 0;
