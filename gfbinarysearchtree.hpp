@@ -14,10 +14,13 @@ class GFBinarySearchTree
         GFBinarySearchTree();
         bool add(int *);
         int *search(int &);
+        int *remove(int &);
         void printTree(bool addresses = 0);
 
     private:
-        void printTree(GFBinarySearchTreeNode *node, int tabs, bool addresses = 0);
+        GFBinarySearchTreeNode *getMaximum(GFBinarySearchTreeNode *node = 0);
+        GFBinarySearchTreeNode *getMinimum(GFBinarySearchTreeNode *node = 0);
+        void printTree(GFBinarySearchTreeNode *, int tabs, bool addresses = 0);
 
         GFBinarySearchTreeNode *head;
 };

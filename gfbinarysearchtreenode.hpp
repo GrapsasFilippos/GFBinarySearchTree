@@ -12,8 +12,11 @@ class GFBinarySearchTreeNode
         GFBinarySearchTreeNode *getLeft();
         void setRight(GFBinarySearchTreeNode *);
         GFBinarySearchTreeNode *getRight();
+        unsigned short childrenNumber();
+        GFBinarySearchTreeNode *getTheChild();
 
     private:
+
         GFBinarySearchTreeNode *left;
         GFBinarySearchTreeNode *right;
 

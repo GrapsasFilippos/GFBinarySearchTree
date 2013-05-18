@@ -33,3 +33,21 @@ void GFBinarySearchTreeNode::setRight(GFBinarySearchTreeNode *node) {
 GFBinarySearchTreeNode *GFBinarySearchTreeNode::getRight() {
     return right;
 }
+
+
+
+unsigned short GFBinarySearchTreeNode::childrenNumber() {
+    unsigned short num = 0;
+
+    if( getLeft() ) num++;
+    if( getRight() ) num++;
+
+    return num;
+}
+
+
+GFBinarySearchTreeNode *GFBinarySearchTreeNode::getTheChild() {
+    if( childrenNumber() != 1 ) return 0;
+
+    return getLeft() ? getLeft() : getRight();
+}
