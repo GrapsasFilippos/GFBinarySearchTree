@@ -1,42 +1,53 @@
+#ifndef GFBINARYSEARCHTREENODE_CPP
+#define GFBINARYSEARCHTREENODE_CPP
+
 #include "gfbinarysearchtreenode.hpp"
 
 
-GFBinarySearchTreeNode::GFBinarySearchTreeNode() : left(0), right(0), data(0) {
+template< class C >
+GFBinarySearchTreeNode< C >::GFBinarySearchTreeNode() : left( 0 ), right( 0 ), data( 0 ) {
 }
 
 
-void GFBinarySearchTreeNode::setData(int *ldata) {
+template< class C >
+void GFBinarySearchTreeNode< C >::setData( C ldata ) {
     data = ldata;
 }
 
 
-int *GFBinarySearchTreeNode::getData() {
+template< class C >
+C GFBinarySearchTreeNode< C >::getData() {
     return data;
 }
 
 
-void GFBinarySearchTreeNode::setLeft(GFBinarySearchTreeNode *node) {
+template< class C >
+void GFBinarySearchTreeNode< C >::setLeft( GFBinarySearchTreeNode< C > * node ) {
     left = node;
 }
 
 
-GFBinarySearchTreeNode *GFBinarySearchTreeNode::getLeft() {
+template< class C >
+GFBinarySearchTreeNode< C > * GFBinarySearchTreeNode< C >::getLeft() {
     return left;
 }
 
 
-void GFBinarySearchTreeNode::setRight(GFBinarySearchTreeNode *node) {
+template< class C >
+void GFBinarySearchTreeNode< C >::setRight( GFBinarySearchTreeNode< C > * node ) {
     right = node;
 }
 
 
-GFBinarySearchTreeNode *GFBinarySearchTreeNode::getRight() {
+template< class C >
+GFBinarySearchTreeNode< C > * GFBinarySearchTreeNode< C >::getRight() {
     return right;
 }
 
 
 
-unsigned short GFBinarySearchTreeNode::childrenNumber() {
+template< class C >
+unsigned short GFBinarySearchTreeNode< C >::childrenNumber() {
     unsigned short num = 0;
 
     if( getLeft() ) num++;
@@ -46,8 +57,12 @@ unsigned short GFBinarySearchTreeNode::childrenNumber() {
 }
 
 
-GFBinarySearchTreeNode *GFBinarySearchTreeNode::getTheChild() {
+template< class C >
+GFBinarySearchTreeNode< C > * GFBinarySearchTreeNode< C >::getTheChild() {
     if( childrenNumber() != 1 ) return 0;
 
     return getLeft() ? getLeft() : getRight();
 }
+
+
+#endif

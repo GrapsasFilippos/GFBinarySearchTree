@@ -1,28 +1,86 @@
 #include <iostream>
+#include <string>
 
 #include "gfbinarysearchtree.hpp"
+#include "gfbinarysearchtreedatacontainer.hpp"
 
 using namespace std;
 
 
-int main()
-{
-    GFBinarySearchTree bst;
-    int *tmpData = 0;
+class IntContainer : public GFBinarySearchTreeDataContainer< int * > {
+    public:
+        IntContainer();
+        IntContainer( int * ldata ) {
+            setData( ldata );
+        }
+        ~IntContainer() {}
+
+        int compare( GFBinarySearchTreeDataContainer< int * > * ldata) {
+            if( *getData() > *ldata->getData() ) return( 1 );
+            if( *getData() < *ldata->getData() ) return( -1 );
+            else return( 0 );
+        }
+        void setData( int * ldata ) {
+            data = ldata;
+        }
+        int * getData() {
+            return data;
+        }
+
+    private:
+        int * data;
+};
+
+
+
+class StringContainer : public GFBinarySearchTreeDataContainer< string * > {
+    public:
+        StringContainer();
+        StringContainer( string * ldata ) {
+            setData( ldata );
+        }
+        ~StringContainer() {}
+
+        int compare( GFBinarySearchTreeDataContainer< string * > * ldata) {
+            return data->compare( *ldata->getData() );
+        }
+        void setData( string * ldata ) {
+            data = ldata;
+        }
+        string * getData() {
+            return data;
+        }
+
+    private:
+        string * data;
+};
+
+
+
+void ints() {
+    GFBinarySearchTree< GFBinarySearchTreeDataContainer< int * > * > bst;
+    IntContainer * tmpIC = 0;
+    IntContainer * tmpIC2 = 0;
     int menu = -1;
 
-
-    bst.add( new int(4) );
-    bst.add( new int(6) );
-    bst.add( new int(7) );
-    bst.add( new int(5) );
-    bst.add( new int(2) );
-    bst.add( new int(3) );
-    bst.add( new int(1) );
-    bst.add( new int(8) );
-    bst.add( new int(9) );
-    bst.printTree();
-
+    tmpIC = new IntContainer( new int( 4 ) );
+    if( !bst.add( tmpIC ) ) delete( tmpIC );
+    tmpIC = new IntContainer( new int( 6 ) );
+    if( !bst.add( tmpIC ) ) delete( tmpIC );
+    tmpIC = new IntContainer( new int( 7 ) );
+    if( !bst.add( tmpIC ) ) delete( tmpIC );
+    tmpIC = new IntContainer( new int( 5 ) );
+    if( !bst.add( tmpIC ) ) delete( tmpIC );
+    tmpIC = new IntContainer( new int( 2 ) );
+    if( !bst.add( tmpIC ) ) delete( tmpIC );
+    tmpIC = new IntContainer( new int( 3 ) );
+    if( !bst.add( tmpIC ) ) delete( tmpIC );
+    tmpIC = new IntContainer( new int( 1 ) );
+    if( !bst.add( tmpIC ) ) delete( tmpIC );
+    tmpIC = new IntContainer( new int( 8 ) );
+    if( !bst.add( tmpIC ) ) delete( tmpIC );
+    tmpIC = new IntContainer( new int( 9 ) );
+    if( !bst.add( tmpIC ) ) delete( tmpIC );
 
     while( menu ) {
         cout << "1. Add\n2. Search\n3. Delete\n4. Print\n0. Exit\n> Option: ";
@@ -32,10 +90,10 @@ int main()
             case 1:
                 cout << "> Give an integer: ";
                 cin >> menu;
-                tmpData = new int( menu );
-                if( bst.add( tmpData ) ) cout << "Added.\n";
+                tmpIC = new IntContainer( new int( menu) );
+                if( bst.add( tmpIC ) ) cout << "Added.\n";
                 else {
-                    delete( tmpData );
+                    delete( tmpIC );
                     cout << "Already exist.\n";
                 }
                 menu = -1;
@@ -43,18 +101,22 @@ int main()
             case 2:
                 cout << "> Give an integer: ";
                 cin >> menu;
-                cout << "Item at: " << bst.search( *new int(menu) ) << endl;
+                tmpIC = new IntContainer( new int( menu) );
+                cout << "Item @ " << bst.search( tmpIC ) << endl;
+                delete( tmpIC );
                 menu = -1;
                 break;
             case 3:
                 cout << "> Give an integer: ";
                 cin >> menu;
-                tmpData = bst.remove( menu );
-                if( tmpData ) {
-                    delete( tmpData );
+                tmpIC = new IntContainer( new int(menu ) );
+                tmpIC2 = ( IntContainer * ) bst.remove( tmpIC );
+                if( tmpIC2 ) {
+                    delete( tmpIC2 );
                     cout << "Removed.\n";
                 }
                 else cout << "Don't exist.\n";
+                delete( tmpIC );
                 menu = -1;
                 break;
             case 4:
@@ -64,6 +126,92 @@ int main()
     }
 
     cout << "Exiting..." << endl;
+}
+
+
+
+void strings() {
+    GFBinarySearchTree< GFBinarySearchTreeDataContainer< string * > * > bst;
+    StringContainer * tmpSC = 0;
+    StringContainer * tmpSC2 = 0;
+    string tmpstr;
+    int menu = -1;
+
+    tmpSC = new StringContainer( new string( "Calliope" ) );
+    if( !bst.add( tmpSC ) ) delete( tmpSC );
+    tmpSC = new StringContainer( new string( "Thalia" ) );
+    if( !bst.add( tmpSC ) ) delete( tmpSC );
+    tmpSC = new StringContainer( new string( "Myrto" ) );
+    if( !bst.add( tmpSC ) ) delete( tmpSC );
+    tmpSC = new StringContainer( new string( "Arsinoe" ) );
+    if( !bst.add( tmpSC ) ) delete( tmpSC );
+    tmpSC = new StringContainer( new string( "Panacea" ) );
+    if( !bst.add( tmpSC ) ) delete( tmpSC );
+    tmpSC = new StringContainer( new string( "Gorgon" ) );
+    if( !bst.add( tmpSC ) ) delete( tmpSC );
+    tmpSC = new StringContainer( new string( "Agathoniki" ) );
+    if( !bst.add( tmpSC ) ) delete( tmpSC );
+    tmpSC = new StringContainer( new string( "Dione" ) );
+    if( !bst.add( tmpSC ) ) delete( tmpSC );
+    tmpSC = new StringContainer( new string( "Jocasta" ) );
+    if( !bst.add( tmpSC ) ) delete( tmpSC );
+
+    while( menu ) {
+        cout << "1. Add\n2. Search\n3. Delete\n4. Print\n0. Exit\n> Option: ";
+        cin >> menu;
+
+        switch(menu) {
+            case 1:
+                cout << "> Give a string: ";
+                cin >> tmpstr;
+                tmpSC = new StringContainer( new string( tmpstr ) );
+                if( bst.add( tmpSC ) ) cout << "Added.\n";
+                else {
+                    delete( tmpSC );
+                    cout << "Already exist.\n";
+                }
+                break;
+            case 2:
+                cout << "> Give a string: ";
+                cin >> tmpstr;
+                tmpSC = new StringContainer( new string( tmpstr ) );
+                cout << "Item @ " << bst.search( tmpSC ) << endl;
+                delete( tmpSC );
+                break;
+            case 3:
+                cout << "> Give a string: ";
+                cin >> tmpstr;
+                tmpSC = new StringContainer( new string( tmpstr ) );
+                tmpSC2 = ( StringContainer * ) bst.remove( tmpSC );
+                if( tmpSC2 ) {
+                    delete( tmpSC2 );
+                    cout << "Removed.\n";
+                }
+                else cout << "Don't exist.\n";
+                delete( tmpSC );
+                break;
+            case 4:
+                bst.printTree(1);
+                break;
+        }
+    }
+
+    cout << "Exiting..." << endl;
+}
+
+int main() {
+    int menu;
+    cout << "1. Integer\n2. String\n3. exit\n> Option: ";
+    cin >> menu;
+
+    switch( menu ) {
+        case 1:
+            ints();
+            break;
+        case 2:
+            strings();
+            break;
+    }
 
     return 0;
 }

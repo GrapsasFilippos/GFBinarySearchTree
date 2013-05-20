@@ -8,22 +8,25 @@
 using namespace std;
 
 
+template< class C >
 class GFBinarySearchTree
 {
     public:
         GFBinarySearchTree();
-        bool add(int *);
-        int *search(int &);
-        int *remove(int &);
-        void printTree(bool addresses = 0);
+        bool add( C );
+        C search( C );
+        C remove( C );
+        void printTree( bool addresses = 0 );
 
     private:
-        GFBinarySearchTreeNode *getMaximum(GFBinarySearchTreeNode *node = 0);
-        GFBinarySearchTreeNode *getMinimum(GFBinarySearchTreeNode *node = 0);
-        void printTree(GFBinarySearchTreeNode *, int tabs, bool addresses = 0);
+        GFBinarySearchTreeNode< C > * getMaximum( GFBinarySearchTreeNode< C > * node = 0);
+        GFBinarySearchTreeNode< C > * getMinimum( GFBinarySearchTreeNode< C > * node = 0 );
+        void printTree( GFBinarySearchTreeNode< C > *, int tabs, bool addresses = 0 );
 
-        GFBinarySearchTreeNode *head;
+        GFBinarySearchTreeNode< C > * head;
 };
 
+
+#include "gfbinarysearchtree.cpp"
 
 #endif // GFBINARYSEARCHTREE_HPP

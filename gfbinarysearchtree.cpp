@@ -1,25 +1,33 @@
+#ifndef GFBINARYSEARCHTREE_CPP
+#define GFBINARYSEARCHTREE_CPP
+
 #include "gfbinarysearchtree.hpp"
 
 
-GFBinarySearchTree::GFBinarySearchTree() : head(0) {
+template< class C >
+GFBinarySearchTree< C >::GFBinarySearchTree() : head( 0 ) {
 }
 
 
-bool GFBinarySearchTree::add(int * ldata) {
-    GFBinarySearchTreeNode *node = 0;
-    GFBinarySearchTreeNode *newNode = new GFBinarySearchTreeNode();
+template< class C >
+bool GFBinarySearchTree< C >::add( C container ) {
+    GFBinarySearchTreeNode< C > * node = 0;
+    GFBinarySearchTreeNode< C > * newNode = new GFBinarySearchTreeNode< C >();
+    int compare;
 
-    newNode->setData(ldata);
+    newNode->setData( container );
 
-    if(!head) {
+    if( !head ) {
         head = newNode;
         return 1;
     }
-
     node = head;
 
     while( 1 ) {
-        if( *newNode->getData() > *node->getData() ) {
+        compare = newNode->getData()->compare( node->getData() );
+
+        //if( *newNode->getData() > *node->getData() ) {
+        if( compare > 0 ) {
             if( node->getLeft() ) {
                 node = node->getLeft();
                 continue;
@@ -29,7 +37,8 @@ bool GFBinarySearchTree::add(int * ldata) {
                 return 1;
             }
         }
-        else if( *newNode->getData() < *node->getData() ) {
+        //else if( *newNode->getData() < *node->getData() ) {
+        else if( compare < 0 ) {
             if( node->getRight() ) {
                 node = node->getRight();
                 continue;
@@ -47,18 +56,24 @@ bool GFBinarySearchTree::add(int * ldata) {
 }
 
 
-int *GFBinarySearchTree::search(int &data) {
-    GFBinarySearchTreeNode *node = head;
+template< class C >
+C GFBinarySearchTree< C >::search( C container ) {
+    GFBinarySearchTreeNode< C > * node = head;
+    int compare;
 
     while( node ) {
-        if( data  == *node->getData() ) {
+        compare = container->compare( node->getData() );
+        //if( container  == *node->getData() ) {
+        if( compare == 0 ) {
             return node->getData();
         }
-        else if( data > *node->getData() ) {
+        //else if( container > *node->getData() ) {
+        else if( compare > 0 ) {
             node = node->getLeft();
             continue;
         }
-        else if( data < *node->getData() ) {
+        //else if( container < *node->getData() ) {
+        else if( compare < 0 ) {
             node = node->getRight();
             continue;
         }
@@ -68,16 +83,20 @@ int *GFBinarySearchTree::search(int &data) {
 }
 
 
-int *GFBinarySearchTree::remove(int &data) {
-    GFBinarySearchTreeNode *father = 0;
-    GFBinarySearchTreeNode *node = head;
-    int *tmpData = 0;
-    int *tmpData2 = 0;
+template< class C >
+C GFBinarySearchTree< C >::remove( C container ) {
+    GFBinarySearchTreeNode< C > * father = 0;
+    GFBinarySearchTreeNode< C > * node = head;
+    C tmpData = 0;
+    C tmpData2 = 0;
+    int compare;
 
     while( node ) {
-        if( data == *node->getData() ) {
+        compare = container->compare( node->getData() );
+        //if( container == *node->getData() ) {
+        if( compare == 0 ) {
             if( node->childrenNumber() == 2 ) {
-                tmpData = remove( *getMinimum( node->getLeft() )->getData() );
+                tmpData = remove( getMinimum( node->getLeft() )->getData() );
                 tmpData2 = node->getData();
                 node->setData( tmpData );
                 return( tmpData2 );
@@ -107,12 +126,14 @@ int *GFBinarySearchTree::remove(int &data) {
                 return( tmpData );
             }
         }
-        else if( data > *node->getData() ) {
+        //else if( container > *node->getData() ) {
+        else if( compare > 0 ) {
             father = node;
             node = node->getLeft();
             continue;
         }
-        else if( data < *node->getData() ) {
+        //else if( container < *node->getData() ) {
+        else if( compare < 0 ) {
             father = node;
             node = node->getRight();
             continue;
@@ -123,15 +144,17 @@ int *GFBinarySearchTree::remove(int &data) {
 }
 
 
-void GFBinarySearchTree::printTree(bool addresses) {
+template< class C >
+void GFBinarySearchTree< C >::printTree( bool addresses ) {
     printTree(head, 0, addresses);
-    if( getMaximum() ) cout << "Maximum: " << *getMaximum()->getData() << " \n";
-    if( getMaximum() ) cout << "Minimum: " << *getMinimum()->getData() << endl;
+    if( getMaximum() ) cout << "Maximum: " << *getMaximum()->getData()->getData() << " \n";
+    if( getMaximum() ) cout << "Minimum: " << *getMinimum()->getData()->getData() << endl;
 }
 
 
 
-GFBinarySearchTreeNode *GFBinarySearchTree::getMaximum(GFBinarySearchTreeNode *node) {
+template< class C >
+GFBinarySearchTreeNode< C > * GFBinarySearchTree< C >::getMaximum( GFBinarySearchTreeNode< C > * node ) {
     if( !node ) node = head;
     if( !node ) return( 0 );
 
@@ -142,7 +165,8 @@ GFBinarySearchTreeNode *GFBinarySearchTree::getMaximum(GFBinarySearchTreeNode *n
 }
 
 
-GFBinarySearchTreeNode *GFBinarySearchTree::getMinimum(GFBinarySearchTreeNode *node) {
+template< class C >
+GFBinarySearchTreeNode< C > * GFBinarySearchTree< C >::getMinimum( GFBinarySearchTreeNode< C > * node ) {
     if( !node ) node = head;
     if( !node ) return( 0 );
 
@@ -153,7 +177,8 @@ GFBinarySearchTreeNode *GFBinarySearchTree::getMinimum(GFBinarySearchTreeNode *n
 }
 
 
-void GFBinarySearchTree::printTree(GFBinarySearchTreeNode *node, int tabs, bool addresses) {
+template< class C >
+void GFBinarySearchTree< C >::printTree( GFBinarySearchTreeNode< C > * node, int tabs, bool addresses ) {
     int i;
 
     for( i = 0; i < tabs; i++ )
@@ -164,7 +189,7 @@ void GFBinarySearchTree::printTree(GFBinarySearchTreeNode *node, int tabs, bool 
         return;
     }
 
-    cout << "+ " << *node->getData();
+    cout << "+ " << *node->getData()->getData();
     if( addresses )
         cout << "   @ " << node->getData() << " Children: " << node->childrenNumber();
     cout << endl;
@@ -172,3 +197,6 @@ void GFBinarySearchTree::printTree(GFBinarySearchTreeNode *node, int tabs, bool 
     printTree( node->getLeft(), tabs + 1, addresses );
     printTree( node->getRight(), tabs + 1, addresses );
 }
+
+
+#endif

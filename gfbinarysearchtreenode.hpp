@@ -1,27 +1,32 @@
 #ifndef GFBINARYSEARCHTREENODE_HPP
 #define GFBINARYSEARCHTREENODE_HPP
 
+#include "gfbinarysearchtreedatacontainer.hpp"
 
+
+template< class C >
 class GFBinarySearchTreeNode
 {
     public:
         GFBinarySearchTreeNode();
-        void setData(int *);
-        int *getData();
-        void setLeft(GFBinarySearchTreeNode *);
-        GFBinarySearchTreeNode *getLeft();
-        void setRight(GFBinarySearchTreeNode *);
-        GFBinarySearchTreeNode *getRight();
+        void setData( C );
+        C getData();
+        void setLeft( GFBinarySearchTreeNode< C > * );
+        GFBinarySearchTreeNode< C > * getLeft();
+        void setRight( GFBinarySearchTreeNode< C > * );
+        GFBinarySearchTreeNode< C > * getRight();
         unsigned short childrenNumber();
-        GFBinarySearchTreeNode *getTheChild();
+        GFBinarySearchTreeNode< C > * getTheChild();
 
     private:
 
-        GFBinarySearchTreeNode *left;
-        GFBinarySearchTreeNode *right;
+        GFBinarySearchTreeNode< C > * left;
+        GFBinarySearchTreeNode< C > * right;
 
-        int *data;
+        C data;
 };
 
+
+#include "gfbinarysearchtreenode.cpp"
 
 #endif // GFBINARYSEARCHTREENODE_HPP
