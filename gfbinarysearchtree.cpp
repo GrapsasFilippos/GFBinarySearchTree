@@ -147,8 +147,8 @@ C GFBinarySearchTree< C >::remove( C container ) {
 template< class C >
 void GFBinarySearchTree< C >::printTree( bool addresses ) {
     printTree(head, 0, addresses);
-    if( getMaximum() ) cout << "Maximum: " << *getMaximum()->getData()->getData() << " \n";
-    if( getMaximum() ) cout << "Minimum: " << *getMinimum()->getData()->getData() << endl;
+    if( getMaximum() ) cout << "Maximum: " << *getMaximum()->getData()->getKey() << " \n";
+    if( getMaximum() ) cout << "Minimum: " << *getMinimum()->getData()->getKey() << endl;
 }
 
 
@@ -189,7 +189,7 @@ void GFBinarySearchTree< C >::printTree( GFBinarySearchTreeNode< C > * node, int
         return;
     }
 
-    cout << "+ " << *node->getData()->getData();
+    cout << "+ " << *node->getData()->getKey();
     if( addresses )
         cout << "   @ " << node->getData() << " Children: " << node->childrenNumber();
     cout << endl;

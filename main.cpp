@@ -9,50 +9,46 @@ using namespace std;
 
 class IntContainer : public GFBinarySearchTreeDataContainer< int * > {
     public:
-        IntContainer();
-        IntContainer( int * ldata ) {
-            setData( ldata );
-        }
+        IntContainer() : key( 0 ) {}
+        IntContainer( int * lkey ) : key( lkey ) {}
         ~IntContainer() {}
 
         int compare( GFBinarySearchTreeDataContainer< int * > * ldata) {
-            if( *getData() > *ldata->getData() ) return( 1 );
-            if( *getData() < *ldata->getData() ) return( -1 );
+            if( *getKey() > *ldata->getKey() ) return( 1 );
+            if( *getKey() < *ldata->getKey() ) return( -1 );
             else return( 0 );
         }
-        void setData( int * ldata ) {
-            data = ldata;
+        void setKey( int * lkey ) {
+            key = lkey;
         }
-        int * getData() {
-            return data;
+        int * getKey() {
+            return key;
         }
 
     private:
-        int * data;
+        int * key;
 };
 
 
 
 class StringContainer : public GFBinarySearchTreeDataContainer< string * > {
     public:
-        StringContainer();
-        StringContainer( string * ldata ) {
-            setData( ldata );
-        }
+        StringContainer() : key( 0 ) {}
+        StringContainer( string * lkey ) : key( lkey ) {}
         ~StringContainer() {}
 
         int compare( GFBinarySearchTreeDataContainer< string * > * ldata) {
-            return data->compare( *ldata->getData() );
+            return getKey()->compare( *ldata->getKey() );
         }
-        void setData( string * ldata ) {
-            data = ldata;
+        void setKey( string * lkey ) {
+            key = lkey;
         }
-        string * getData() {
-            return data;
+        string * getKey() {
+            return key;
         }
 
     private:
-        string * data;
+        string * key;
 };
 
 

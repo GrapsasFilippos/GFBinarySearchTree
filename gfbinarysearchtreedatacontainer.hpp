@@ -7,8 +7,8 @@ class GFBinarySearchTreeDataContainer {
     public:
         virtual ~GFBinarySearchTreeDataContainer() {}
         virtual int compare( GFBinarySearchTreeDataContainer< C > * ) = 0;
-        virtual void setData( C ) = 0;
-        virtual C getData() = 0;
+        virtual void setKey( C ) = 0;
+        virtual C getKey() = 0;
 };
 
 
